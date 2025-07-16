@@ -35,8 +35,6 @@ def register_student(request):
 
 # This is for Login and Logout Views
 
-
-
 class UserLoginView(LoginView):
     template_name = 'login.html'
     authentication_form = EmailLoginForm
@@ -46,8 +44,6 @@ class UserLogoutView(LogoutView):
 
 
 # Admin Views
-
-
 
 def is_admin(user):
     return user.is_authenticated and user.role == 'admin'
@@ -63,9 +59,6 @@ def approve_tutor(request, tutor_id):
     tutor.approved = True
     tutor.save()
     return redirect('pending_tutors')
-
-
-
 
 @user_passes_test(is_admin)
 def assign_tutor(request):
@@ -95,14 +88,7 @@ def assign_tutor(request):
         'assignments': assignments,
     })
 
-
-
-
-
-
 # Admin things
-
-
 
 @login_required
 def dashboard(request):
@@ -136,8 +122,6 @@ def dashboard(request):
         return render(request, 'dashboard_viewer.html', {'user_role': 'Viewer'})
 
 
-
-
 @user_passes_test(is_admin)
 def make_payment(request):
     if request.method == 'POST':
@@ -156,8 +140,6 @@ def make_payment(request):
 def payment_history(request):
     payments = TutorPayment.objects.all().order_by('-payment_date')
     return render(request, 'payment_history.html', {'payments': payments})
-
-
 
 
 @login_required
@@ -184,8 +166,6 @@ def remove_assignment(request, assignment_id):
     assignment = get_object_or_404(TutorAssignment, id=assignment_id)
     assignment.delete()
     return redirect('assign_tutor')
-
-
 
 
 @login_required
