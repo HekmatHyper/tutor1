@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Assign Tutor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Assign Tutor to Student</h4>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="student" class="form-label">Select Student</label>
+          <select name="student_id" id="student" class="form-select" required>
+            <option value="" disabled selected>Choose a student</option>
+            {% for student in students %}
+              <option value="{{ student.id }}">{{ student.user.full_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="tutor" class="form-label">Select Tutor</label>
+          <select name="tutor_id" id="tutor" class="form-select" required>
+            <option value="" disabled selected>Choose a tutor</option>
+            {% for tutor in tutors %}
+              <option value="{{ tutor.id }}">{{ tutor.user.full_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Assign Tutor</button>
+      </form>
+    </div>
+  </div>
+
+  <p>Assignments count: {{ assignments|length }}</p>
+
+
+  <!-- Assignment Table -->
+  {% if assignments %}
+  <div class="card shadow-sm mt-4">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Current Assignments</h5>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Student</th>
+            <th>Tutor</th>
+            <th>Assigned Date</th>
+            <th class="text-end">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for assignment in assignments %}
+          <tr>
+            <td>{{ assignment.student.user.full_name }}</td>
+            <td>{{ assignment.tutor.user.full_name }}</td>
+            <td>{{ assignment.assigned_at|date:"Y-m-d" }}</td>
+            <td class="text-end">
+              <form method="post" action="{% url 'remove_assignment' assignment.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger" title="Remove">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+    <p class="mt-4 text-muted">No assignments available yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Pending Tutors{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+      <h4 class="mb-0">Pending Tutor Approvals</h4>
+    </div>
+    <div class="card-body">
+      {% if tutors %}
+        <ul class="list-group">
+          {% for tutor in tutors %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>{{ tutor.user.full_name }}</strong> – {{ tutor.user.email }}
+              </div>
+              <a href="{% url 'approve_tutor' tutor.id %}" class="btn btn-success btn-sm">Approve</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="alert alert-info mb-0">
+          No tutors awaiting approval.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

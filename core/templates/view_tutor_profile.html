@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Tutor Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Tutor Profile</h4>
+    </div>
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Full Name</dt>
+        <dd class="col-sm-9">{{ tutor.user.full_name }}</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">{{ tutor.user.email }}</dd>
+
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">{{ tutor.user.phone }}</dd>
+
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">{{ tutor.location }}</dd>
+
+        <dt class="col-sm-3">Time Zone</dt>
+        <dd class="col-sm-9">{{ tutor.time_zone }}</dd>
+
+        <dt class="col-sm-3">Skills</dt>
+        <dd class="col-sm-9">{{ tutor.skills|linebreaks }}</dd>
+
+        <dt class="col-sm-3">Experience</dt>
+        <dd class="col-sm-9">{{ tutor.experience|linebreaks }}</dd>
+      </dl>
+
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
