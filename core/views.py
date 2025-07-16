@@ -1,6 +1,16 @@
 from django.shortcuts import render, redirect
 from .forms import TutorRegistrationForm, StudentRegistrationForm
 from .models import TutorPayment
+from django.shortcuts import render, get_object_or_404
+from .models import TutorProfile
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, LogoutView
+from .forms import EmailLoginForm
+from django.contrib.auth.decorators import user_passes_test
+from .models import TutorProfile, StudentProfile, TutorAssignment, CustomUser
+from .forms import StudentProfileEditForm
+from django.views.decorators.http import require_POST
+from .forms import TutorPaymentForm
 
 def register_tutor(request):
     if request.method == 'POST':
@@ -25,8 +35,7 @@ def register_student(request):
 
 # This is for Login and Logout Views
 
-from django.contrib.auth.views import LoginView, LogoutView
-from .forms import EmailLoginForm
+
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
@@ -38,9 +47,7 @@ class UserLogoutView(LogoutView):
 
 # Admin Views
 
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import get_object_or_404
-from .models import TutorProfile, StudentProfile, TutorAssignment, CustomUser
+
 
 def is_admin(user):
     return user.is_authenticated and user.role == 'admin'
@@ -95,8 +102,7 @@ def assign_tutor(request):
 
 # Admin things
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+
 
 @login_required
 def dashboard(request):
@@ -132,8 +138,6 @@ def dashboard(request):
 
 
 
-from .forms import TutorPaymentForm
-
 @user_passes_test(is_admin)
 def make_payment(request):
     if request.method == 'POST':
@@ -154,10 +158,7 @@ def payment_history(request):
     return render(request, 'payment_history.html', {'payments': payments})
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .models import StudentProfile
-from .forms import StudentProfileEditForm
+
 
 @login_required
 def edit_student_profile(request):
@@ -177,8 +178,6 @@ def edit_student_profile(request):
     return render(request, 'edit_student_profile.html', {'form': form})
 
 
-from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404
 
 @require_POST
 def remove_assignment(request, assignment_id):
@@ -188,9 +187,6 @@ def remove_assignment(request, assignment_id):
 
 
 
-from django.shortcuts import render, get_object_or_404
-from .models import TutorProfile
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def view_tutor_profile(request, tutor_id):
