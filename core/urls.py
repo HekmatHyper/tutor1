@@ -3,7 +3,7 @@ from .views import (
     register_tutor, register_student,
     UserLoginView, UserLogoutView,
     dashboard, pending_tutors, approve_tutor, assign_tutor,
-    make_payment, payment_history, edit_student_profile, remove_assignment, view_tutor_profile
+    make_payment, payment_history, edit_student_profile, remove_assignment, view_tutor_profile, inbox, send_message
 )
 
 urlpatterns = [
@@ -37,4 +37,22 @@ urlpatterns = [
 
 urlpatterns += [
     path('student/profile/edit/', edit_student_profile, name='edit_student_profile'),
+]
+
+
+
+
+urlpatterns += [
+    path('messages/inbox/', inbox, name='inbox'),
+
+]
+
+
+
+from .views import inbox, message_detail, send_message
+
+urlpatterns += [
+    path('messages/', inbox, name='inbox'),
+    path('messages/send/', send_message, name='send_message'),
+    path('messages/<int:message_id>/', message_detail, name='message_detail'),
 ]

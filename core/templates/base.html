@@ -12,12 +12,30 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
       <a class="navbar-brand" href="{% url 'dashboard' %}">Tutoring Platform</a>
-      <div class="d-flex">
-        <form action="{% url 'logout' %}" method="post" class="d-inline">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-outline-light">Logout</button>
-</form>
 
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'send_message' %}">Send Message</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_student_profile' %}">Edit Profile</a>
+          </li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light">Logout</button>
+        </form>
       </div>
     </div>
   </nav>

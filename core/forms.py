@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, TutorProfile, StudentProfile
 
+from .models import Message
+
+from django.contrib.auth import get_user_model
+
 class TutorRegistrationForm(UserCreationForm):
     experience = forms.CharField(widget=forms.Textarea)
     skills = forms.CharField(widget=forms.Textarea)
@@ -84,4 +88,21 @@ class StudentProfileEditForm(forms.ModelForm):
             'program_details': forms.TextInput(attrs={'class': 'form-control'}),
             'preferred_format': forms.TextInput(attrs={'class': 'form-control'}),
             'required_hours': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
+
+
+
+
+
+User = get_user_model()
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject', 'body']
+        widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
         }

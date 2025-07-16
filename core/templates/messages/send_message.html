@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Send Message{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">Send a Message</h5>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">To</label>
+          {{ form.recipient|add_class:"form-select" }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Subject</label>
+          {{ form.subject }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          {{ form.body }}
+        </div>
+        <button type="submit" class="btn btn-success">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -4,13 +4,40 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="card shadow-sm">
+  <!-- Summary Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-bg-primary mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Total Students</h5>
+          <p class="card-text fs-4">{{ student_count }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-bg-success mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Total Tutors</h5>
+          <p class="card-text fs-4">{{ tutor_count }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-bg-warning mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Pending Tutors</h5>
+          <p class="card-text fs-4">{{ pending_tutor_count }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="card shadow-sm mb-4">
     <div class="card-header bg-dark text-white">
-      <h3 class="mb-0">Welcome, Admin</h3>
+      <h4 class="mb-0">Admin Actions</h4>
     </div>
     <div class="card-body">
-      <p class="mb-4">Select an administrative action below:</p>
-
       <div class="list-group">
         <a href="{% url 'pending_tutors' %}" class="list-group-item list-group-item-action">
           🔎 View Pending Tutors
@@ -25,6 +52,37 @@
           📄 Payment History
         </a>
       </div>
+    </div>
+  </div>
+
+  <!-- Student-Tutor Assignment Table -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Student-Tutor Assignments</h5>
+    </div>
+    <div class="card-body p-0">
+      {% if assignments %}
+        <table class="table table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Student</th>
+              <th>Tutor</th>
+              <th>Assigned At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for assignment in assignments %}
+              <tr>
+                <td>{{ assignment.student.user.full_name }}</td>
+                <td>{{ assignment.tutor.user.full_name }}</td>
+                <td>{{ assignment.assigned_at|date:"Y-m-d H:i" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="text-muted p-3">No assignments available yet.</p>
+      {% endif %}
     </div>
   </div>
 </div>

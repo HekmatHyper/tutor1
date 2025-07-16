@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Message Detail{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h5>{{ msg.subject }}</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>From:</strong> {{ msg.sender.full_name }}</p>
+      <p><strong>To:</strong> {{ msg.recipient.full_name }}</p>
+      <p><strong>Sent:</strong> {{ msg.timestamp|date:"Y-m-d H:i" }}</p>
+      <hr>
+      <p>{{ msg.body|linebreaks }}</p>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      <h6>Reply</h6>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Message{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-light">
+      <h5>{{ message.subject }}</h5>
+      <p class="mb-0"><strong>From:</strong> {{ message.sender.full_name }} | <strong>To:</strong> {{ message.recipient.full_name }}</p>
+      <small class="text-muted">{{ message.timestamp|date:"Y-m-d H:i" }}</small>
+    </div>
+    <div class="card-body">
+      <p>{{ message.body|linebreaks }}</p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h6>Reply:</h6>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Send Reply</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
