@@ -36,7 +36,7 @@
       color: var(--text-light);
     }
 
- 
+
 
     /* Sidebar */
     .sidebar {
@@ -136,11 +136,10 @@
       max-width: 300px;
       margin-bottom: 15px;
     }
+
     body.dark ::placeholder {
       color: wheat;
     }
-
-    
   </style>
 </head>
 
@@ -192,7 +191,7 @@
         <div>
           <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
           <button class="toggle-btn" onclick="toggleDarkMode()">
-            <i class="bi bi-moon"></i> 
+            <i id="toggleIcon" class="bi bi-moon-fill"></i>
           </button>
         </div>
         <div>
@@ -200,22 +199,22 @@
         </div>
         <div>
 
-        <form action="{% url 'logout' %}" method="post" class="d-inline">
-          {% csrf_token %}
-           <button class="btn btn-danger btn-sm" onclick="toggleDarkMode()">
-            <i class="bi  bi-box-arrow-right"></i> Logout
-          </button>
-        </form>
+          <form action="{% url 'logout' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button class="btn btn-danger btn-sm" onclick="toggleDarkMode()">
+              <i class="bi  bi-box-arrow-right"></i> Logout
+            </button>
+          </form>
 
 
-         
+
         </div>
       </div>
     </nav>
     <!--content   -->
-     <div class="container mt-4">
-         {% block content %}{% endblock %}
-     </div>
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
+    </div>
     <!--  -->
   </div>
 
@@ -233,8 +232,18 @@
     // Dark mode toggle
     function toggleDarkMode() {
       var dark = document.body.classList.toggle('dark');
+      var icon = document.getElementById('toggleIcon');
+
       const table = document.querySelector('table');
       table.classList.toggle('table-dark', dark);
+
+      if (dark) {
+        icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+
+      } else {
+        icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+      }
+
 
 
     }
