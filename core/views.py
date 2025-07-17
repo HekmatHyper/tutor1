@@ -248,3 +248,7 @@ def send_message(request):
         form.fields['recipient'].queryset = allowed_recipients
 
     return render(request, 'messages/compose.html', {'form': form})
+
+
+def index(request):
+    return render(request, 'index.html')

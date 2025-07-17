@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 from .views import (
     register_tutor, register_student,
     UserLoginView, UserLogoutView,
@@ -8,7 +9,8 @@ from .views import (
 
 urlpatterns = [
     # Default route — redirects to dashboard (can be changed)
-    path('', dashboard, name='home'),
+    # path('', dashboard, name='home'),
+    path('', views.index, name='home'),
 
     # Auth
     path('login/', UserLoginView.as_view(), name='login'),
