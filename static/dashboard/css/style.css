@@ -1,0 +1,155 @@
+ :root {
+   --primary: #6a307d;
+   --primary-dark: #53245f;
+   --gradient: linear-gradient(160deg, #6a307d, #a4508b);
+   --light-bg: #f2f2f2;
+   --dark-bg: #121212;
+   --dark-card: #1e1e1e;
+   --text-light: #f8f9fa;
+   --text-dark: #212529;
+ }
+
+ body {
+   font-family: 'Segoe UI', sans-serif;
+   background-color: var(--light-bg);
+   transition: background-color 0.3s, color 0.3s;
+ }
+
+ body.dark {
+   background-color: var(--dark-bg);
+   color: var(--text-light);
+ }
+
+ body.dark .sidebar {
+   background-image: none !important;
+   background-color: #000000 !important;
+ }
+
+
+
+ /* Sidebar */
+ .sidebar {
+   height: 100vh;
+   width: 250px;
+   position: fixed;
+   top: 0;
+   left: 0;
+   background: var(--gradient);
+   transition: all 0.3s ease;
+   z-index: 1000;
+  overflow-y: auto; /* اضافه کردن اسکرول عمودی هنگام نیاز */
+  max-height: 100vh; /* محدود کردن ارتفاع به viewport */
+
+ }
+
+ .sidebar a {
+   color: var(--text-light);
+   padding: 15px 20px;
+   display: block;
+   text-decoration: none;
+   transition: background 0.3s ease;
+   text-indent: 1rem;
+ }
+
+  .sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+
+ .sidebar a:hover {
+   background-color: rgba(255, 255, 255, 0.1);
+ }
+
+ .sidebar.collapsed {
+   margin-left: -250px;
+ }
+
+ #main-content {
+   margin-left: 250px;
+   transition: margin-left 0.3s ease;
+ }
+
+ #main-content.full {
+   margin-left: 0;
+ }
+
+ .toggle-btn {
+   border: none;
+   background-color: var(--primary);
+   color: white;
+   padding: 6px 12px;
+   border-radius: 6px;
+ }
+
+ .card {
+   border-radius: 16px;
+   transition: all 0.3s ease;
+ }
+
+ .card-stat {
+   position: relative;
+   color: white;
+ }
+
+ .card-stat .icon {
+   font-size: 2.2rem;
+   position: absolute;
+   top: 15px;
+   right: 20px;
+   opacity: 0.3;
+ }
+
+ .navbar-brand {
+   color: var(--primary);
+   font-weight: bold;
+ }
+
+ .dark .navbar,
+ .dark .card,
+ .dark .form-control,
+ .dark .form-select,
+ .dark .table {
+   background-color: var(--dark-card) !important;
+   color: var(--text-light);
+   border-color: #444;
+ }
+
+ .form-control,
+ .form-select,
+ textarea {
+   border-radius: 12px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+ }
+
+ .form-control:focus,
+ .form-select:focus,
+ textarea:focus {
+   border-color: var(--primary);
+   box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.2);
+ }
+
+ .search-input {
+   max-width: 300px;
+   margin-bottom: 15px;
+ }
+
+ body.dark ::placeholder {
+   color: wheat;
+ }
+
+ body.dark .navbar-brand {
+   color: var(--text-light) !important;
+ }
