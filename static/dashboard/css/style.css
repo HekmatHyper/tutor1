@@ -309,3 +309,18 @@
        background-color: var(--dark-bg);
        color: var(--text-light);
   }
+
+    .panel-collapse-btn {
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      margin-top: 0.1rem;
+    }
+
+    .panel-collapse-btn.collapsed {
+      transform: rotate(-180deg);
+    }
+  .break-anywhere {
+    line-break: anywhere;
+    word-break: break-word; 
+  }
