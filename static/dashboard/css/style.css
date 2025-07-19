@@ -183,8 +183,7 @@
       --panel-warning-heading-bg: #4a3a2a;
       --panel-danger-border: #5a2a2a;
       --panel-danger-heading-bg: #4a2a2a;
-      background-color: #121212;
-      color: #f8f9fa;
+     
     }
 
     .panel {
@@ -202,7 +201,6 @@
     .panel-heading {
       display: flex;
       justify-content: space-between;
-      /* padding: 10px 15px; */
       border-bottom: 1px solid var(--panel-default-border);
       border-top-left-radius: 3px;
       border-top-right-radius: 3px;
@@ -298,3 +296,16 @@
     .clickable-row { 
       cursor: pointer;
     }
+
+    .select2-container--bootstrap-5 {
+      border: 1px solid #ced4da; /* رنگ border مشابه Bootstrap */
+      border-radius: 0.375rem;   /* گوشه گرد شبیه form-control */
+      height: calc(2.25rem + 2px); /* ارتفاع مثل inputهای Bootstrap */
+      padding: 0.375rem 0.45rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  body.dark .select2-search__field  , body.dark   .select2-dropdown { 
+       background-color: var(--dark-bg);
+       color: var(--text-light);
+  }

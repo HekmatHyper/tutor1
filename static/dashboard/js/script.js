@@ -9,7 +9,8 @@ function toggleDarkMode() {
     var icon = document.getElementById('toggleIcon');
 
     const table = document.querySelector('table');
-    table.classList.toggle('table-dark', dark);
+    if(table)
+        table.classList.toggle('table-dark', dark);
 
     if (dark) {
         icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
