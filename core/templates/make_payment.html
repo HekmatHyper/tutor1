@@ -1,30 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 {% block title %}Make Tutor Payment{% endblock %}
-
+{% block PageH1 %}Make Tutor Payment{% endblock %}
+{% block extra_head %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <div class="card shadow-sm">
-    <div class="card-header bg-success text-white">
-      <h4 class="mb-0">Make Tutor Payment</h4>
-    </div>
-    <div class="card-body">
-      <form method="post">
-        {% csrf_token %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="panel">
+      <div class="panel-heading">
+        <h5 class="panel-title">Make Tutor Payment</h5>
+      </div>
+      <div class="panel-body">
         {% for field in form %}
-          <div class="mb-3">
-            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% if field.help_text %}
-              <div class="form-text">{{ field.help_text }}</div>
-            {% endif %}
-            {% for error in field.errors %}
-              <div class="text-danger">{{ error }}</div>
-            {% endfor %}
-          </div>
+        <div class="mb-3">
+          <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+          <div class="form-text">{{ field.help_text }}</div>
+          {% endif %}
+          {% for error in field.errors %}
+          <div class="text-danger">{{ error }}</div>
+          {% endfor %}
+        </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary">Submit Payment</button>
-      </form>
-    </div>
-  </div>
+      </div>
+      <div class="panel-footer text-center gap-2 mx-auto">
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-primary" type="submit">Send</button>
+        </div>
+      </div>
+  </form>
 </div>
+{% endblock %}
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    $('#id_tutor').select2({
+      width: '100%',
+      theme: 'bootstrap-5',
+      placeholder: "Select..."
+    });
+    $('#id_hours_worked').addClass('form-control');
+    $('#id_amount_paid').addClass('form-control');
+  });
+
+
+</script>
 {% endblock %}
