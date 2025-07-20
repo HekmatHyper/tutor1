@@ -324,3 +324,11 @@
     line-break: anywhere;
     word-break: break-word; 
   }
+  body.dark li.list-group-item {
+    background: #1a1515;
+    border: 1px solid #340e0e;
+    color: white;
+  }
+  .approve-li {
+    background: #ede8de8f;
+  }
