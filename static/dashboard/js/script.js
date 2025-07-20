@@ -19,3 +19,13 @@ function toggleDarkMode() {
         icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
     }
 }
+// Collapse Panels
+  document.addEventListener('DOMContentLoaded', function () {
+    const collapseButtons = document.querySelectorAll('.panel-heading');
+    collapseButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const icon = this.querySelector('.panel-collapse-btn');
+        icon.classList.toggle('collapsed');
+      });
+    });
+  });
