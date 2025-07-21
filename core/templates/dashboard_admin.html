@@ -1,79 +1,92 @@
 {% extends 'dashboard_base.html' %}
 
 {% block title %}Admin Dashboard{% endblock %}
+{% block PageH1 %}Admin Dashboard{% endblock %}
 
 {% block content %}
 
+<div class="container mt-4">
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card card-stat bg-primary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Students</h5>
+          <p class="fs-4">{{ student_count }}</p>
+          <i class="bi bi-people icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-stat bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Total Tutors</h5>
+          <p class="fs-4">{{ tutor_count }}</p>
+          <i class="bi bi-person icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-stat bg-warning text-white">
+        <div class="card-body">
+          <h5 class="card-title">Pending Tutors</h5>
+          <p class="fs-4">{{ pending_tutor_count }}</p>
+          <i class="bi bi-person-exclamation icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="row g-4 mb-4">
-  <div class="col-md-4">
-    <div class="card card-stat bg-primary text-white">
-      <div class="card-body">
-        <h5 class="card-title">Total Students</h5>
-        <p class="fs-4">{{ student_count }}</p>
-        <i class="bi bi-people icon"></i>
+  <!-- Table -->
+
+  {% if assignments %}
+
+  <div class="panel">
+    <div class="panel-heading">
+      <h5 class="panel-title">Student-Tutor Assignments</h5>
+    </div>
+    <div class="panel-heading">
+      <input class="form-control no-radius" id="searchInput" type="text" placeholder="Search in table..." />
+    </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table id="userTable" class="table table-striped  table-bordered table-hover ">
+          <thead class="sticky-top table-header">
+            <tr>
+              <th>Student</th>
+              <th>Tutor</th>
+              <th>Assigned At</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            {% for assignment in assignments %}
+            <tr>
+              <td>{{ assignment.student.user.full_name }}</td>
+              <td>{{ assignment.tutor.user.full_name }}</td>
+              <td>{{ assignment.assigned_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
+    <div class="panel-footer">Total: {{assignments|length}}</div>
   </div>
-  <div class="col-md-4">
-    <div class="card card-stat bg-success text-white">
-      <div class="card-body">
-        <h5 class="card-title">Total Tutors</h5>
-        <p class="fs-4">{{ tutor_count }}</p>
-        <i class="bi bi-person icon"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card card-stat bg-warning text-white">
-      <div class="card-body">
-        <h5 class="card-title">Pending Tutors</h5>
-        <p class="fs-4">{{ pending_tutor_count }}</p>
-        <i class="bi bi-person-exclamation icon"></i>
-      </div>
-    </div>
-  </div>
+
+  {% else %}
+  <p class="text-muted p-3">No assignments available yet.</p>
+  {% endif %}
+
 </div>
-
-<!-- Table -->
-
- {% if assignments %}
-<div class="container my-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Student-Tutor Assignments</h2>
-  </div>
-
-  <input
-    class="form-control mb-3"
-    id="searchInput"
-    type="text"
-    placeholder="Search in table..."
-  />
-
-  <div class="table-responsive">
-    <table id="userTable" class="table table-striped  table-bordered table-hover ">
-      <thead class="sticky-top table-header">
-        <tr>
-          <th>Student</th>
-          <th>Tutor</th>
-          <th>Assigned At</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-       {% for assignment in assignments %}
-        <tr>
-          <td>{{ assignment.student.user.full_name }}</td>
-          <td>{{ assignment.tutor.user.full_name }}</td>
-          <td>{{ assignment.assigned_at|date:"Y-m-d H:i" }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-{% else %}
-<p class="text-muted p-3">No assignments available yet.</p>
-{% endif %}
-
-
+{% endblock %}
+{% block extra_script %}
+<script>
+  // Live search
+  document.getElementById('searchInput').addEventListener('keyup', function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll('#userTable tbody tr');
+    rows.forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
+    });
+  });
+</script>
 {% endblock %}

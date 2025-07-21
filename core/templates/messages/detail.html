@@ -1,33 +1,65 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block title %}Message Detail{% endblock %}
-
+{% block PageH1 %}Message Detail{% endblock %}
+{% block extra_head %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 {% block content %}
 <div class="container mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h5>{{ msg.subject }}</h5>
+
+  <div class="panel panel-info">
+    <div class="panel-heading" data-bs-toggle="collapse" data-bs-target="#panelInfo">
+      <h3 class="panel-title">{{ msg.subject }}</h3>
+      <i class="bi bi-chevron-up panel-collapse-btn"></i>
     </div>
-    <div class="card-body">
-      <p><strong>From:</strong> {{ msg.sender.full_name }}</p>
-      <p><strong>To:</strong> {{ msg.recipient.full_name }}</p>
-      <p><strong>Sent:</strong> {{ msg.timestamp|date:"Y-m-d H:i" }}</p>
-      <hr>
-      <p>{{ msg.body|linebreaks }}</p>
+    <div id="panelInfo" class="collapse show">
+      <div class="panel-body">
+        <div class="d-flex justify-content-between">
+          <p><strong>From:</strong> {{ msg.sender.full_name }}</p>
+          <p><strong>To:</strong> {{ msg.recipient.full_name }}</p>
+          <p><strong>Sent:</strong> {{ msg.timestamp|date:"Y-m-d H:i" }}</p>
+        </div>
+        <p class="break-anywhere"><strong>Message:</strong> {{ msg.body }}</p>
+      </div>
     </div>
   </div>
 
-  <div class="card mt-4">
-    <div class="card-header">
-      <h6>Reply</h6>
-    </div>
-    <div class="card-body">
-      <form method="post">
-        {% csrf_token %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="panel">
+      <div class="panel-heading">
+        <h5 class="panel-title">Reply</h5>
+      </div>
+      <div class="panel-body">
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Send Reply</button>
-      </form>
-    </div>
-  </div>
+      </div>
+      <div class="panel-footer text-center gap-2 mx-auto">
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-primary" type="submit">Send Reply</button>
+        </div>
+      </div>
+  </form>
+
+
+
+
+
+
 </div>
+{% endblock %}
+
+
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    $('#id_recipient').select2({
+      width: '100%',
+      theme: 'bootstrap-5',
+      placeholder: "Select..."
+    });
+  });
+</script>
 {% endblock %}

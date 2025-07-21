@@ -1,40 +1,104 @@
-{% extends 'base.html' %}
-
+{% extends 'auth_base.html' %}
 {% block title %}Login{% endblock %}
-
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card shadow-sm">
-      <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">Login</h4>
-      </div>
-      <div class="card-body">
-        <form method="post" novalidate>
-          {% csrf_token %}
-          {% for field in form %}
-            <div class="mb-3">
-              <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-              {{ field }}
-              {% if field.errors %}
-                <div class="text-danger small">
-                  {{ field.errors|striptags }}
+
+  <div class="auth-container animate__animated animate__fadeIn" id="login-container">
+                    <div class="auth-header row">
+                        <div class="col-4">
+                            <div class="animate__animated animate__fadeInDown logoContainer">
+                                <a href="{% url 'home' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="160" height="36" viewBox="0 0 160 36"
+                                        fill="none" class="amsvglogo replaced-svg">
+                                        <path d="M17.7273 14.4H14.1819C6.34608 14.4 0 7.9563 0 0H17.7273V14.4Z"
+                                            fill="#F05B8A">
+                                        </path>
+                                        <path
+                                            d="M31.909 14.3999V35.9999C24.0732 35.9999 17.7271 29.5562 17.7271 21.5999V14.3999H31.909Z"
+                                            fill="#FFC649"></path>
+                                        <path d="M31.909 14.4H17.7271V0L31.909 14.4Z" fill="#F04A2D"></path>
+                                        <path
+                                            d="M30.3501 6.78655L25.2256 1.58319C24.6496 0.998319 25.0568 0 25.8711 0H30.9857C31.4922 0 31.8994 0.413445 31.8994 0.927731V6.12101C31.9093 6.95798 30.9261 7.37143 30.3501 6.78655Z"
+                                            fill="#FFC649"></path>
+                                        <path
+                                            d="M65.0983 4.90918V9.96953H57.5706V30.5776H52.5277V9.96953H45V4.90918H65.0983Z"
+                                            fill="white"></path>
+                                        <path
+                                            d="M67.5393 21.5753V12.243H72.5821V21.502C72.5821 22.3698 72.7587 23.1582 73.112 23.8672C73.4652 24.5761 73.9586 25.1445 74.592 25.5723C75.2375 25.9879 75.9806 26.1957 76.8211 26.1957C77.6615 26.1957 78.368 25.9879 78.9405 25.5723C79.5252 25.1445 79.9698 24.5761 80.2743 23.8672C80.5788 23.1582 80.7311 22.3698 80.7311 21.502V12.243H85.774V30.5776H80.7311V28.6892C80.1586 29.3859 79.4704 29.9604 78.6664 30.4126C77.8747 30.8649 76.9672 31.091 75.944 31.091C74.2144 31.091 72.7222 30.6632 71.4676 29.8076C70.2251 28.952 69.2629 27.803 68.5807 26.3607C67.8986 24.9183 67.5514 23.3232 67.5393 21.5753Z"
+                                            fill="white"></path>
+                                        <path
+                                            d="M100.286 17.3034H96.9976V30.5776H91.9548V17.3034H89.4333V12.243H91.9548V6.48596H96.9976V12.243H100.286V17.3034Z"
+                                            fill="white"></path>
+                                        <path
+                                            d="M103.769 21.5753V12.243H108.812V21.502C108.812 22.3698 108.989 23.1582 109.342 23.8672C109.695 24.5761 110.188 25.1445 110.822 25.5723C111.467 25.9879 112.21 26.1957 113.051 26.1957C113.891 26.1957 114.598 25.9879 115.17 25.5723C115.755 25.1445 116.2 24.5761 116.504 23.8672C116.809 23.1582 116.961 22.3698 116.961 21.502V12.243H122.004V30.5776H116.961V28.6892C116.388 29.3859 115.7 29.9604 114.896 30.4126C114.105 30.8649 113.197 31.091 112.174 31.091C110.444 31.091 108.952 30.6632 107.697 29.8076C106.455 28.952 105.493 27.803 104.811 26.3607C104.128 24.9183 103.781 23.3232 103.769 21.5753Z"
+                                            fill="white"></path>
+                                        <path
+                                            d="M137.96 17.4134C137.631 17.1689 137.265 16.9795 136.863 16.845C136.461 16.6983 136.017 16.625 135.53 16.625C134.701 16.625 133.995 16.8389 133.41 17.2667C132.838 17.6823 132.399 18.2446 132.095 18.9535C131.802 19.6624 131.656 20.4508 131.656 21.3187V30.5776H126.577V12.243H131.62V14.1315C132.204 13.4226 132.892 12.8542 133.684 12.4264C134.488 11.9863 135.402 11.7663 136.425 11.7663C136.839 11.7663 137.241 11.7785 137.631 11.803C138.021 11.8152 138.398 11.8763 138.764 11.9863L137.96 17.4134Z"
+                                            fill="white"></path>
+                                    </svg>
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <h2 class="animate__animated animate__fadeInDown">Welcome Back</h2>
+                            <p class="mb-0 animate__animated animate__fadeIn animate__delay-1s">Sign in to access your
+                                account</p>
+                        </div>
+                    </div>
+                    <div class="auth-body">
+                        <form method="post" class="animate-form" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="login-email" class="form-label">Email address : </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" name="username" class="form-control" id="login-email"
+                                        placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="login-password" class="form-label">Password : </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input name="password" type="password" class="form-control" id="login-password"
+                                        placeholder="Enter your password" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {% for field in form %}
+                                {% if field.errors %}
+                                <div class="text-danger small">
+                                    {{ field.errors|striptags }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <!-- <div class="mb-3 form-check"> -->
+                            <!-- <input type="checkbox" class="form-check-input" id="remember-me"> -->
+                            <!-- <label class="form-check-label" for="remember-me">Remember me</label> -->
+                            <!-- <a href="#" class="float-end">Forgot password?</a> -->
+                            <!-- </div> -->
+                            <button type="submit"
+                                class="btn btn-primary w-100 py-2 mb-3 animate__animated animate__fadeInUp animate__delay-1s">
+                                Sign In
+                                <!-- <i class="fas fa-arrow-right ms-2"></i> -->
+                            </button>
+                            <hr />
+                            <div class="text-center">
+                                <p class="mb-0">Don't have an account?</p>
+                                <div class="register-buttons">
+                                    <a href="{% url 'register_student' %}"
+                                        class="register-btn register-btn-type1 animate__animated animate__fadeInUp animate__delay-1s"
+                                        <i class="fas fa-user me-1"></i> Start as student
+                                    </a>
+                                    <a href="{% url 'register_tutor' %}"
+                                        class="register-btn register-btn-type2 animate__animated animate__fadeInUp animate__delay-1s"
+                                        <i class="fas fa-user-tie me-1"></i> Join as Instructor
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-              {% endif %}
-            </div>
-          {% endfor %}
-          <button type="submit" class="btn btn-primary w-100">Log In</button>
-        </form>
-
-        <hr class="my-4">
-
-        <p class="text-center">Don't have an account?</p>
-        <div class="d-flex justify-content-center gap-2">
-          <a href="{% url 'register_student' %}" class="btn btn-outline-info">Sign up as Student</a>
-          <a href="{% url 'register_tutor' %}" class="btn btn-outline-info">Sign up as Tutor</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}

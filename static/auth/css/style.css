@@ -1,0 +1,467 @@
+ :root {
+            --primary-color: #6a307d;
+            --primary-light: #9b59b6;
+            --primary-dark: #4a1d5a;
+            --dark-bg: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --dark-text-secondary: #a0a0a0;
+            --dark-border: #333;
+            --accent-color: #ffc107;
+
+            /* Light mode variables */
+            --light-bg: #f8f9fa;
+            --light-surface: #ffffff;
+            --light-text: #212529;
+            --light-text-secondary: #6c757d;
+            --light-border: #dee2e6;
+
+            --animate-delay: 200ms;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+        }
+
+        body.light-mode .auth-container {
+            background-color: var(--light-surface);
+            border-color: var(--light-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .form-control {
+            background-color: rgba(0, 0, 0, 0.02);
+            border-color: var(--light-border);
+            color: var(--light-text);
+        }
+
+        body.light-mode .form-control:focus {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.25);
+            color: var(--light-text);
+        }
+
+        body.light-mode .form-control::placeholder {
+            color: var(--light-text-secondary);
+        }
+
+        body.light-mode .user-type-selector {
+            border-color: var(--light-border);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .user-type-btn {
+            background-color: var(--light-surface);
+            color: var(--light-text);
+        }
+
+        body.light-mode .form-text {
+            color: var(--light-text-secondary);
+        }
+
+        /* استایل‌های جدید برای textarea */
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+            padding: 12px;
+            line-height: 1.5;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        textarea.form-control:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.25);
+            color: var(--dark-text);
+        }
+
+        textarea.form-control::placeholder {
+            color: var(--dark-text-secondary);
+            opacity: 0.7;
+        }
+
+        body.light-mode textarea.form-control {
+            background-color: rgba(0, 0, 0, 0.02);
+            border-color: var(--light-border);
+            color: var(--light-text);
+        }
+
+        body.light-mode textarea.form-control:focus {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.25);
+            color: var(--light-text);
+        }
+
+        body.light-mode textarea.form-control::placeholder {
+            color: var(--light-text-secondary);
+        }
+
+        .textarea-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .textarea-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .textarea-icon {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: var(--primary-light);
+            z-index: 2;
+        }
+
+        .textarea-with-icon {
+            padding-left: 40px;
+        }
+
+        .auth-container {
+            background-color: var(--dark-surface);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border: 1px solid var(--dark-border);
+        }
+
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .auth-body {
+            padding: 30px;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.25);
+            color: var(--dark-text);
+        }
+
+        .form-control::placeholder {
+            color: var(--dark-text-secondary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .auth-switch {
+            color: var(--primary-light);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-switch:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .user-type-selector {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--dark-border);
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background-color: var(--dark-surface);
+            color: var(--dark-text);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .user-type-btn.active {
+            background-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .auth-decoration {
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            background: rgba(106, 48, 125, 0.1);
+            border: 1px solid rgba(106, 48, 125, 0.2);
+            opacity: 0.7;
+            filter: blur(1px);
+            will-change: transform;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        .decoration-3 {
+            bottom: 30%;
+            right: 5%;
+            width: 100px;
+            height: 100px;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(5px, 10px) rotate(2deg);
+            }
+
+            50% {
+                transform: translate(10px, 5px) rotate(-2deg);
+            }
+
+            75% {
+                transform: translate(5px, -5px) rotate(1deg);
+            }
+        }
+
+        .animate-form {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-group-text {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .form-check-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--dark-border);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .form-check-label a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        .form-check-label a:hover {
+            text-decoration: underline;
+        }
+
+        .form-text {
+            color: var(--dark-text-secondary);
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+
+            .decoration-1,
+            .decoration-2,
+            .decoration-3 {
+                opacity: 0.5;
+            }
+
+            .decoration-1 {
+                width: 120px;
+                height: 120px;
+            }
+
+            .decoration-2 {
+                width: 150px;
+                height: 150px;
+            }
+
+            .decoration-3 {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                margin: 20px;
+            }
+
+            .auth-header {
+                padding: 20px;
+            }
+
+            .auth-body {
+                padding: 20px;
+            }
+
+            .decoration-1,
+            .decoration-2,
+            .decoration-3 {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .user-type-selector {
+                flex-direction: column;
+            }
+
+            .auth-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .logoContainer {
+            margin-top: 1rem;
+        }
+
+        /* استایل‌های جدید برای دکمه‌های ثبت نام */
+        .register-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .register-buttons a {
+            text-decoration: none;
+        }
+
+        .register-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            max-width: 200px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-btn-type1 {
+
+            background: linear-gradient(105.69deg, #EAB308 0%, #EF4444 43.23%) !important;
+            color: white;
+        }
+
+        .register-btn-type1:hover {
+            background: linear-gradient(268deg, #EAB308 0%, #EF4444 43.23%) !important;
+        }
+
+        .register-btn-type2 {
+            background: linear-gradient(266deg, #3B82F6 0%, #1D4ED8 43.23%) !important;
+            color: white;
+        }
+
+        .register-btn-type2:hover {
+            background: linear-gradient(90deg, #3B82F6 0%, #1D4ED8 43.23%) !important;
+        }
+
+        body.light-mode .register-btn-type1 {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .register-btn-type2 {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }

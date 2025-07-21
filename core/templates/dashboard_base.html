@@ -1,149 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard with Dark Mode</title>
-
+  <title>{% block title %}Tutoring Platform{% endblock %}</title>
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  <!-- Select2 -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-  <style>
-    :root {
-      --primary: #6a307d;
-      --primary-dark: #53245f;
-      --gradient: linear-gradient(160deg, #6a307d, #a4508b);
-      --light-bg: #f2f2f2;
-      --dark-bg: #121212;
-      --dark-card: #1e1e1e;
-      --text-light: #f8f9fa;
-      --text-dark: #212529;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--light-bg);
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    body.dark {
-      background-color: var(--dark-bg);
-      color: var(--text-light);
-    }
-  body.dark .sidebar {
-    background-image: none !important;
-    background-color: #000000 !important;
-  }
-
-
-    /* Sidebar */
-    .sidebar {
-      height: 100vh;
-      width: 250px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: var(--gradient);
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .sidebar a {
-      color: var(--text-light);
-      padding: 15px 20px;
-      display: block;
-      text-decoration: none;
-      transition: background 0.3s ease;
-      text-indent: 1rem;
-    }
-
-
-    .sidebar a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar.collapsed {
-      margin-left: -250px;
-    }
-
-    #main-content {
-      margin-left: 250px;
-      transition: margin-left 0.3s ease;
-    }
-
-    #main-content.full {
-      margin-left: 0;
-    }
-
-    .toggle-btn {
-      border: none;
-      background-color: var(--primary);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-    }
-
-    .card {
-      border-radius: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .card-stat {
-      position: relative;
-      color: white;
-    }
-
-    .card-stat .icon {
-      font-size: 2.2rem;
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      opacity: 0.3;
-    }
-
-    .navbar-brand {
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    .dark .navbar,
-    .dark .card,
-    .dark .form-control,
-    .dark .form-select,
-    .dark .table {
-      background-color: var(--dark-card) !important;
-      color: var(--text-light);
-      border-color: #444;
-    }
-
-    .form-control,
-    .form-select,
-    textarea {
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .form-control:focus,
-    .form-select:focus,
-    textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 0.25rem rgba(106, 48, 125, 0.2);
-    }
-
-    .search-input {
-      max-width: 300px;
-      margin-bottom: 15px;
-    }
-
-    body.dark ::placeholder {
-      color: wheat;
-    }
-  </style>
+  {% block extra_head %}{% endblock %}
+  <!-- Custom Css  -->
+  <link href="{% static '/dashboard/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -178,13 +46,14 @@
 
     </a>
 
-
     <a href="{% url 'dashboard' %}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-    <a href="{% url 'pending_tutors' %}"><i class="bi bi-person-exclamation"></i> Pending Tutors </a>
-    <a href="{% url 'assign_tutor' %}"><i class="bi bi-people-fill"></i> Assign Tutors</a>
-    <a href="{% url 'make_payment' %}"><i class="bi bi-credit-card-2-back-fill"></i> Make Tutor Payment</a>
-    <a href="{% url 'payment_history' %}"><i class="bi bi-archive-fill"></i> Payment History </a>
-
+    <a href="{% url 'inbox' %}"><i class="bi  bi-inbox me-2"></i>Inbox</a>
+    <a href="{% url 'send_message' %}"><i class="bi bi-envelope-at-fill me-2"></i>Send Message</a>
+    <a href="{% url 'pending_tutors' %}"><i class="bi bi-person-exclamation me-2"></i>Pending Tutors </a>
+    <a href="{% url 'assign_tutor' %}"><i class="bi bi-people-fill me-2"></i>Assign Tutors</a>
+    <a href="{% url 'make_payment' %}"><i class="bi bi-credit-card-2-back-fill me-2"></i>Make Tutor Payment</a>
+    <a href="{% url 'payment_history' %}"><i class="bi bi-archive-fill me-2"></i>Payment History </a>
+    <a href="{% url 'edit_student_profile' %}"><i class="bi  bi-person-badge-fill me-2"></i>Edit Profile </a>
   </div>
 
   <!-- Main Content -->
@@ -192,32 +61,28 @@
     <nav class="navbar bg-white shadow-sm">
       <div class="container-fluid d-flex justify-content-between align-items-center">
         <div>
-          <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+          <button class="toggle-btn" onclick="toggleSidebar()"><i class="bi bi-menu-button-wide"></i></button>
           <button class="toggle-btn" onclick="toggleDarkMode()">
             <i id="toggleIcon" class="bi bi-moon-fill"></i>
           </button>
         </div>
         <div>
-          <span class="navbar-brand ms-4">{% block title %}Admin Dashboard{% endblock %}</span>
+          <span class="navbar-brand ms-4">{% block PageH1 %}Admin Dashboard{% endblock %}</span>
         </div>
         <div>
 
           <form action="{% url 'logout' %}" method="post" class="d-inline">
             {% csrf_token %}
-            <button class="btn btn-danger btn-sm" onclick="toggleDarkMode()">
+            <button class="btn btn-danger btn-sm">
               <i class="bi  bi-box-arrow-right"></i> Logout
             </button>
           </form>
-
-
 
         </div>
       </div>
     </nav>
     <!--content   -->
-    <div class="container mt-4">
       {% block content %}{% endblock %}
-    </div>
     <!--  -->
   </div>
 
@@ -225,40 +90,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script>
-    // Sidebar toggle
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('collapsed');
-      document.getElementById('main-content').classList.toggle('full');
-    }
-    // Dark mode toggle
-    function toggleDarkMode() {
-      var dark = document.body.classList.toggle('dark');
-      var icon = document.getElementById('toggleIcon');
-
-      const table = document.querySelector('table');
-      table.classList.toggle('table-dark', dark);
-
-      if (dark) {
-        icon.classList.replace('bi-moon-fill', 'bi-sun-fill');
-
-      } else {
-        icon.classList.replace('bi-sun-fill', 'bi-moon-fill');
-      }
-
-
-
-    }
-    // Live search
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-      let filter = this.value.toLowerCase();
-      let rows = document.querySelectorAll('#userTable tr');
-      rows.forEach(row => {
-        row.style.display = row.textContent.toLowerCase().includes(filter) ? '' : 'none';
-      });
-    });
-  </script>
+  {% block extra_script %}{% endblock %}
+  <script src="{% static '/dashboard/js/script.js' %}"></script>
 </body>
 
 </html>
