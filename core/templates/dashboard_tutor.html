@@ -1,32 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 {% block title %}Tutor Dashboard{% endblock %}
+{% block PageH1 %}Tutor Dashboard{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-  <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">Welcome, {{ profile.user.full_name }} (Tutor)</h4>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">Assigned Students</h4>
+      <h4 class="panel-title">Welcome, {{ profile.user.full_name }} (Tutor)</h4>
     </div>
-    <div class="card-body">
-      <h5>Assigned Students</h5>
-      
+    <div class="panel-body">
       {% if assignments %}
-        <ul class="list-group">
-          {% for assign in assignments %}
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span>
-                <strong>{{ assign.student.user.full_name }}</strong><br>
-                <small class="text-muted">{{ assign.student.program_details }}</small>
-              </span>
-            </li>
-          {% endfor %}
-        </ul>
+      <ul class="list-group">
+        {% for assign in assignments %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>
+            <strong>{{ assign.student.user.full_name }}</strong><br>
+            <small class="text-muted2">{{ assign.student.program_details }}</small>
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
       {% else %}
-        <div class="alert alert-info">
-          No students assigned yet.
-        </div>
+      <div class="alert alert-info">
+        No students assigned yet.
+      </div>
       {% endif %}
+
     </div>
+    <div class="panel-footer text-center gap-2 mx-auto"></div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}

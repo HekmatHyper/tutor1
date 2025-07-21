@@ -30,6 +30,7 @@
       <p><strong>Hours Worked:</strong> {{ assign.hours_worked|default:"0.0" }} hrs</p>
       <a href="{% url 'view_tutor_profile' assign.tutor.id %}" class="btn btn-sm btn-outline-secondary">View Tutor
         Profile</a>
+        <hr>
       {% endfor %}
       {% else %}
       <p class="text-muted">You have not been assigned a tutor yet.</p>
