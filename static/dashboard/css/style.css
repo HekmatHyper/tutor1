@@ -335,3 +335,7 @@
   body.dark .panel-body {
     color: var(--text-light);
   }
+
+body.dark .text-muted {
+    color: var(--bs-gray-100) !important;
+}
