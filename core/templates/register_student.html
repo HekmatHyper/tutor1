@@ -1,36 +1,162 @@
-{% extends 'base.html' %}
-{% load form_tags %}  {# Load custom filter for adding classes #}
+{% extends 'auth_base.html' %}
+{% load form_tags %} {# Load custom filter for adding classes #}
 
 {% block title %}Student Registration{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow">
-        <div class="card-header bg-success text-white">
-          <h4 class="mb-0">Student Registration</h4>
-        </div>
-        <div class="card-body">
-          <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-              <div class="mb-3">
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                {{ field|add_class:"form-control" }}
-                {% if field.help_text %}
-                  <div class="form-text text-muted">{{ field.help_text }}</div>
-                {% endif %}
-                {% for error in field.errors %}
-                  <div class="text-danger">{{ error }}</div>
-                {% endfor %}
-              </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-success w-100">Register</button>
-          </form>
-        </div>
+<div class="auth-container animate__animated animate__fadeIn  mt-4 mb-4" >
+
+  <div class="auth-header row">
+    <div class="col-4">
+      <div class="animate__animated animate__fadeInDown logoContainer">
+        <a href="{% url 'home' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="36" viewBox="0 0 160 36" fill="none"
+            class="amsvglogo replaced-svg">
+            <path d="M17.7273 14.4H14.1819C6.34608 14.4 0 7.9563 0 0H17.7273V14.4Z" fill="#F05B8A">
+            </path>
+            <path d="M31.909 14.3999V35.9999C24.0732 35.9999 17.7271 29.5562 17.7271 21.5999V14.3999H31.909Z"
+              fill="#FFC649"></path>
+            <path d="M31.909 14.4H17.7271V0L31.909 14.4Z" fill="#F04A2D"></path>
+            <path
+              d="M30.3501 6.78655L25.2256 1.58319C24.6496 0.998319 25.0568 0 25.8711 0H30.9857C31.4922 0 31.8994 0.413445 31.8994 0.927731V6.12101C31.9093 6.95798 30.9261 7.37143 30.3501 6.78655Z"
+              fill="#FFC649"></path>
+            <path d="M65.0983 4.90918V9.96953H57.5706V30.5776H52.5277V9.96953H45V4.90918H65.0983Z" fill="white"></path>
+            <path
+              d="M67.5393 21.5753V12.243H72.5821V21.502C72.5821 22.3698 72.7587 23.1582 73.112 23.8672C73.4652 24.5761 73.9586 25.1445 74.592 25.5723C75.2375 25.9879 75.9806 26.1957 76.8211 26.1957C77.6615 26.1957 78.368 25.9879 78.9405 25.5723C79.5252 25.1445 79.9698 24.5761 80.2743 23.8672C80.5788 23.1582 80.7311 22.3698 80.7311 21.502V12.243H85.774V30.5776H80.7311V28.6892C80.1586 29.3859 79.4704 29.9604 78.6664 30.4126C77.8747 30.8649 76.9672 31.091 75.944 31.091C74.2144 31.091 72.7222 30.6632 71.4676 29.8076C70.2251 28.952 69.2629 27.803 68.5807 26.3607C67.8986 24.9183 67.5514 23.3232 67.5393 21.5753Z"
+              fill="white"></path>
+            <path
+              d="M100.286 17.3034H96.9976V30.5776H91.9548V17.3034H89.4333V12.243H91.9548V6.48596H96.9976V12.243H100.286V17.3034Z"
+              fill="white"></path>
+            <path
+              d="M103.769 21.5753V12.243H108.812V21.502C108.812 22.3698 108.989 23.1582 109.342 23.8672C109.695 24.5761 110.188 25.1445 110.822 25.5723C111.467 25.9879 112.21 26.1957 113.051 26.1957C113.891 26.1957 114.598 25.9879 115.17 25.5723C115.755 25.1445 116.2 24.5761 116.504 23.8672C116.809 23.1582 116.961 22.3698 116.961 21.502V12.243H122.004V30.5776H116.961V28.6892C116.388 29.3859 115.7 29.9604 114.896 30.4126C114.105 30.8649 113.197 31.091 112.174 31.091C110.444 31.091 108.952 30.6632 107.697 29.8076C106.455 28.952 105.493 27.803 104.811 26.3607C104.128 24.9183 103.781 23.3232 103.769 21.5753Z"
+              fill="white"></path>
+            <path
+              d="M137.96 17.4134C137.631 17.1689 137.265 16.9795 136.863 16.845C136.461 16.6983 136.017 16.625 135.53 16.625C134.701 16.625 133.995 16.8389 133.41 17.2667C132.838 17.6823 132.399 18.2446 132.095 18.9535C131.802 19.6624 131.656 20.4508 131.656 21.3187V30.5776H126.577V12.243H131.62V14.1315C132.204 13.4226 132.892 12.8542 133.684 12.4264C134.488 11.9863 135.402 11.7663 136.425 11.7663C136.839 11.7663 137.241 11.7785 137.631 11.803C138.021 11.8152 138.398 11.8763 138.764 11.9863L137.96 17.4134Z"
+              fill="white"></path>
+          </svg>
+
+        </a>
       </div>
     </div>
+    <div class="col-8">
+      <h2 class="animate__animated animate__fadeInDown">Create Account</h2>
+      <p class="mb-0 animate__animated animate__fadeIn animate__delay-1s">Join our community today
+      </p>
+    </div>
+  </div>
+
+
+  <div class="auth-body">
+    <div class="user-type-selector animate__animated animate__fadeIn">
+      <a href="{% url 'register_student' %}" class="user-type-btn active" >
+        <i class="fas fa-user me-2"></i>Register As Student
+      </a>
+      <a href="{% url 'register_tutor' %}" class="user-type-btn" >
+        <i class="fas fa-user-tie me-2"></i>Register As Tutor
+      </a>
+    </div>
+    <hr>
+    <div>
+      {% for error in field.errors %}
+      <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <!-- Student Registration -->
+    <form method="post" class="animate-form" id="">
+      {% csrf_token %}
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="id_email" class="form-label">Email address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input type="email" placeholder="Enter your email" required name="email" maxlength="254" autofocus=""
+            class="form-control" id="id_email">
+        </div>
+      </div>
+      <!-- Full Name -->
+      <div class="mb-3">
+        <label for="id_full_name" class="form-label">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input type="text" name="full_name" class="form-control" id="id_full_name" placeholder="Enter your full name"
+            maxlength="150" required>
+        </div>
+      </div>
+      <!-- Phone Number -->
+      <div class="mb-3">
+        <label for="id_phone" class="form-label">Phone</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+
+          <input type="text" name="phone" maxlength="20" class="form-control" required id="id_phone"
+            placeholder="Enter your Phone Number">
+        </div>
+      </div>
+      <!-- password -->
+      <div class="mb-3">
+        <label for="id_password1" class="form-label">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input type="password" name="password1" autocomplete="new-password" placeholder="Create a password"
+            class="form-control" required="" aria-describedby="id_password1_helptext" id="id_password1">
+        </div>
+        <div class="form-text">Must be at least 8 characters</div>
+      </div>
+      <!-- confirm password  -->
+      <div class="mb-3">
+        <label for="id_password2" class="form-label">Confirm Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input type="password" name="password2" autocomplete="new-password" class="form-control"
+            placeholder="Confirm your password" required aria-describedby="id_password2_helptext" id="id_password2">
+        </div>
+      </div>
+      <!-- Academic needs -->
+      <div class="mb-3">
+        <label for="id_academic_needs" class="form-label">Academic needs </label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+          <textarea name="academic_needs" cols="40" rows="10" class="form-control" required="" id="id_academic_needs"
+            placeholder="Describe your needs ..."></textarea>
+        </div>
+      </div>
+      <!-- Program details -->
+      <div class="mb-3">
+        <label for="id_program_details" class="form-label">Program details</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-info"></i></span>
+          <input type="text" name="program_details" class="form-control" required id="id_program_details">
+        </div>
+      </div>
+      <!-- Preferred format -->
+      <div class="mb-3">
+        <label for="id_preferred_format" class="form-label">Preferred format</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+          <input type="text" name="preferred_format" class="form-control" required id="id_preferred_format">
+        </div>
+      </div>
+      <!-- Required hours -->
+      <div class="mb-3">
+        <label for="id_required_hours" class="form-label">Required hours</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user-clock"></i></span>
+          <input type="number" name="required_hours" class="form-control" required id="id_required_hours">
+        </div>
+      </div>
+
+
+      <button type="submit"
+        class="btn btn-primary w-100 py-2 mb-3 animate__animated animate__fadeInUp animate__delay-1s">
+        Register as Student <i class="fas fa-user-plus ms-2"></i>
+      </button>
+      <div class="text-center">
+        <p class="mb-0">Already have an account?
+          <a href="{% url 'login' %}" class="auth-switch">Sign in here</a>
+        </p>
+      </div>
+    </form>
+
   </div>
 </div>
 {% endblock %}

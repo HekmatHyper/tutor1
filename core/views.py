@@ -40,7 +40,7 @@ def register_student(request):
 # This is for Login and Logout Views
 
 class UserLoginView(LoginView):
-    template_name = 'log.html'
+    template_name = 'login.html'
     authentication_form = EmailLoginForm
 
 class UserLogoutView(LogoutView):

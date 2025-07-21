@@ -73,12 +73,10 @@
 
           <form action="{% url 'logout' %}" method="post" class="d-inline">
             {% csrf_token %}
-            <button class="btn btn-danger btn-sm" onclick="toggleDarkMode()">
+            <button class="btn btn-danger btn-sm">
               <i class="bi  bi-box-arrow-right"></i> Logout
             </button>
           </form>
-
-
 
         </div>
       </div>
