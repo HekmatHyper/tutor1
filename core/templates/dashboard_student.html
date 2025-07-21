@@ -1,34 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block title %}Student Dashboard{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row mb-4">
-    <div class="col">
-      <h2>Welcome, {{ profile.user.full_name }} (Student)</h2>
-      <p class="text-muted">Program: {{ profile.program_details }}</p>
+
+
+<div class="container mt-4">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="panel-title">Welcome, {{ profile.user.full_name }} (Student)</h2>
+    </div>
+    <div class="panel-body">
+      <p class="text-muted2"><strong> Program:</strong> {{ profile.program_details }}</p>
+
+    </div>
+    <div class="panel-footer">
       <a href="{% url 'edit_student_profile' %}" class="btn btn-sm btn-outline-primary">Edit My Profile</a>
     </div>
   </div>
-
-  <div class="card shadow-sm">
-    <div class="card-header bg-info text-white">
-      <h5 class="mb-0">Assigned Tutor</h5>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Assigned Tutor</h3>
     </div>
-    
-    <div class="card-body">
+    <div class="panel-body">
       {% if assignments %}
-        {% for assign in assignments %}
-          <h5>{{ assign.tutor.user.full_name }}</h5>
-          <p><strong>Skills:</strong> {{ assign.tutor.skills }}</p>
-          <p><strong>Experience:</strong> {{ assign.tutor.experience }}</p>
-          <p><strong>Hours Worked:</strong> {{ assign.hours_worked|default:"0.0" }} hrs</p>
-          <a href="{% url 'view_tutor_profile' assign.tutor.id %}" class="btn btn-sm btn-outline-secondary">View Tutor Profile</a>
-        {% endfor %}
+      {% for assign in assignments %}
+      <h4><strong>Name:</strong>{{ assign.tutor.user.full_name }}</h4>
+      <p><strong>Skills:</strong> {{ assign.tutor.skills }}</p>
+      <p><strong>Experience:</strong> {{ assign.tutor.experience }}</p>
+      <p><strong>Hours Worked:</strong> {{ assign.hours_worked|default:"0.0" }} hrs</p>
+      <a href="{% url 'view_tutor_profile' assign.tutor.id %}" class="btn btn-sm btn-outline-secondary">View Tutor
+        Profile</a>
+      {% endfor %}
       {% else %}
-        <p class="text-muted">You have not been assigned a tutor yet.</p>
+      <p class="text-muted">You have not been assigned a tutor yet.</p>
       {% endif %}
+
+
+
+    </div>
+    <div class="panel-footer">
     </div>
   </div>
 </div>

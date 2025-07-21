@@ -332,3 +332,6 @@
   .approve-li {
     background: #ede8de8f;
   }
+  body.dark .panel-body {
+    color: var(--text-light);
+  }
