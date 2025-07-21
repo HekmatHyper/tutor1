@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 {% block title %}Tutor Profile{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-      <h4 class="mb-0">Tutor Profile</h4>
+<div class="container mt-4">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="panel-title">Tutor Profile</h2>
     </div>
-    <div class="card-body">
+    <div class="panel-body">
       <dl class="row">
         <dt class="col-sm-3">Full Name</dt>
         <dd class="col-sm-9">{{ tutor.user.full_name }}</dd>
@@ -30,9 +30,10 @@
         <dt class="col-sm-3">Experience</dt>
         <dd class="col-sm-9">{{ tutor.experience|linebreaks }}</dd>
       </dl>
-
-      <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+    <div class="panel-footer">
     </div>
   </div>
 </div>
+
 {% endblock %}
