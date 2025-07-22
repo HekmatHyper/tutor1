@@ -39,11 +39,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Collapse Panels
 document.addEventListener('DOMContentLoaded', function () {
-  const collapseButtons = document.querySelectorAll('.panel-heading');
+  var collapseButtons = document.querySelectorAll('.panel-heading');
   collapseButtons.forEach(button => {
     button.addEventListener('click', function () {
-      const icon = this.querySelector('.panel-collapse-btn');
+      var icon = this.querySelector('.panel-collapse-btn');
+      if(icon)
       icon.classList.toggle('collapsed');
     });
   });
 });
+
+
+function handleResponsiveClasses() {
+  var sidebar = document.getElementById('sidebar')
+  var mainContent = document.getElementById('main-content')
+
+  if (window.innerWidth < 768) {
+    mainContent?.classList.add('full');
+    sidebar?.classList.add('collapsed');
+  } else {
+    mainContent?.classList.remove('full');
+    sidebar?.classList.remove('collapsed');
+  }
+}
+
+// Run on page load
+window.addEventListener('DOMContentLoaded', handleResponsiveClasses);
+
+// Run on window resize
+window.addEventListener('resize', handleResponsiveClasses);
