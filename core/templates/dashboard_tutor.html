@@ -16,7 +16,12 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <span>
             <strong>{{ assign.student.user.full_name }}</strong><br>
-            <small class="text-muted2">{{ assign.student.program_details }}</small>
+            <small class="text-muted2">{{ assign.student.program_details }}</small><br>
+            <p>{{assign.student.academic_needs}}</p>
+            <p>{{assign.student.program_details}}</p>
+            <p>{{assign.student.preferred_format}}</p>
+            <p>{{assign.student.required_hours}}</p>
+            <a href="{% url 'edit_student_profile' %}" class="btn btn-sm btn-outline-primary">See Student details</a>
           </span>
         </li>
         {% endfor %}

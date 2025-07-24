@@ -46,14 +46,53 @@
 
     </a>
 
-    <a href="{% url 'dashboard' %}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+    <!-- <a href="{% url 'dashboard' %}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
     <a href="{% url 'inbox' %}"><i class="bi  bi-inbox me-2"></i>Inbox</a>
     <a href="{% url 'send_message' %}"><i class="bi bi-envelope-at-fill me-2"></i>Send Message</a>
     <a href="{% url 'pending_tutors' %}"><i class="bi bi-person-exclamation me-2"></i>Pending Tutors </a>
     <a href="{% url 'assign_tutor' %}"><i class="bi bi-people-fill me-2"></i>Assign Tutors</a>
     <a href="{% url 'make_payment' %}"><i class="bi bi-credit-card-2-back-fill me-2"></i>Make Tutor Payment</a>
     <a href="{% url 'payment_history' %}"><i class="bi bi-archive-fill me-2"></i>Payment History </a>
-    <a href="{% url 'edit_student_profile' %}"><i class="bi  bi-person-badge-fill me-2"></i>Edit Profile </a>
+    <a href="{% url 'edit_student_profile' %}"><i class="bi  bi-person-badge-fill me-2"></i>Edit Profile </a> -->
+
+
+    <a href="{% url 'dashboard' %}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+    <a href="{% url 'inbox' %}"><i class="bi bi-inbox me-2"></i>Inbox</a>
+    <a href="{% url 'send_message' %}"><i class="bi bi-envelope-at-fill me-2"></i>Send Message</a>
+
+    {% if request.user.role == 'admin' %}
+      <a href="{% url 'pending_tutors' %}"><i class="bi bi-person-exclamation me-2"></i>Pending Tutors</a>
+      <a href="{% url 'assign_tutor' %}"><i class="bi bi-people-fill me-2"></i>Assign Tutors</a>
+      <a href="{% url 'make_payment' %}"><i class="bi bi-credit-card-2-back-fill me-2"></i>Make Tutor Payment</a>
+    {% endif %}
+
+    <!-- {% if request.user.role == 'student' or request.user.role == 'tutor' %}
+      <a href="{% url 'payment_history' %}"><i class="bi bi-archive-fill me-2"></i>Payment History</a> -->
+
+    {% if request.user.role == 'tutor' %}
+      <a href="{% url 'payment_history' %}">
+        <i class="bi bi-archive-fill me-2"></i>Payment History
+      </a>
+    {% endif %}
+
+
+
+    {% if request.user.role == 'student' %}
+            <a href="{% url 'edit_student_profile' %}"><i class="bi bi-person-badge-fill me-2"></i>Edit Profile</a>
+    {% elif request.user.role == 'tutor' %}
+            <a href="{% url 'edit_tutor_profile' %}"><i class="bi bi-person-badge-fill me-2"></i>Edit Profile</a>
+    {% endif %}
+
+
+    {% endif %}
+
+
+
+    
+
+
+
+
   </div>
 
   <!-- Main Content -->

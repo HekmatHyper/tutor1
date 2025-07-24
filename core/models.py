@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.conf import settings
-
 from django.contrib.auth import get_user_model
+from django_countries.fields import CountryField
+from django.utils import timezone
+import pytz
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -49,8 +51,10 @@ class TutorProfile(models.Model):
     experience = models.TextField()
     skills = models.TextField()
     interests = models.TextField()
-    location = models.CharField(max_length=100)
-    timezone = models.CharField(max_length=100)
+    # location = models.CharField(max_length=100)
+    location = CountryField(blank_label='(select country)')
+    # timezone = models.CharField(max_length=100)
+    timezone = models.CharField(max_length=100, choices=[(tz, tz) for tz in pytz.common_timezones])
     approved = models.BooleanField(default=False)
     hourly_rate = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
 
@@ -90,12 +94,6 @@ class TutorPayment(models.Model):
     def __str__(self):
         return f"{self.tutor.user.full_name} - ${self.amount_paid} for {self.hours_worked} hrs"
     
-
-
-
-
-
-
 
 User = get_user_model()
 

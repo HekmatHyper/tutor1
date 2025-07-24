@@ -9,8 +9,8 @@ from .views import (
 
 urlpatterns = [
     # Default route — redirects to dashboard (can be changed)
-    path('', dashboard, name='home'),
-    # path('', views.index, name='home'),
+    # path('', dashboard, name='home'),
+    path('', views.index, name='home'),
 
     # Auth
     path('login/', UserLoginView.as_view(), name='login'),
@@ -32,20 +32,14 @@ urlpatterns = [
 
     path('tutor/profile/<int:tutor_id>/', view_tutor_profile, name='view_tutor_profile'),
 
+    path('tutor/profile/edit/', views.edit_tutor_profile, name='edit_tutor_profile'),
 
-
-]
-
-
-urlpatterns += [
     path('student/profile/edit/', edit_student_profile, name='edit_student_profile'),
-]
 
 
-
-
-urlpatterns += [
     path('messages/inbox/', inbox, name='inbox'),
+
+    
 
 ]
 

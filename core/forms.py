@@ -1,10 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, TutorProfile, StudentProfile
-
 from .models import Message
-
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
+from .models import TutorPayment
+from .models import StudentProfile
+import pytz
+from django_countries.widgets import CountrySelectWidget
 
 class TutorRegistrationForm(UserCreationForm):
     experience = forms.CharField(widget=forms.Textarea)
@@ -57,27 +60,13 @@ class StudentRegistrationForm(UserCreationForm):
             )
         return user
 
-
-from django.contrib.auth.forms import AuthenticationForm
-from django import forms
-
 class EmailLoginForm(AuthenticationForm):
     username = forms.EmailField(label="Email", widget=forms.EmailInput(attrs={'autofocus': True}))
-
-
-
-from .models import TutorPayment
 
 class TutorPaymentForm(forms.ModelForm):
     class Meta:
         model = TutorPayment
         fields = ['tutor', 'hours_worked', 'amount_paid']
-
-
-
-
-
-from .models import StudentProfile
 
 class StudentProfileEditForm(forms.ModelForm):
     class Meta:
@@ -90,12 +79,6 @@ class StudentProfileEditForm(forms.ModelForm):
             'required_hours': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
-
-
-
-
-
-
 User = get_user_model()
 
 class MessageForm(forms.ModelForm):
@@ -105,4 +88,14 @@ class MessageForm(forms.ModelForm):
         widgets = {
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+
+class TutorProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = TutorProfile
+        fields = ['experience', 'skills', 'interests', 'location', 'timezone', 'hourly_rate']
+        widgets = {
+            'location': CountrySelectWidget(),  # Optional for better UI
+            'timezone': forms.Select(choices=[(tz, tz) for tz in pytz.common_timezones]),
         }

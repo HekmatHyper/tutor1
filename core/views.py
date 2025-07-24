@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import TutorRegistrationForm, StudentRegistrationForm
+from .forms import TutorRegistrationForm, StudentRegistrationForm, TutorProfileEditForm
 from .models import TutorPayment
 from django.shortcuts import render, get_object_or_404
 from .models import TutorProfile
@@ -15,6 +15,8 @@ from .forms import MessageForm
 from .models import Message
 from django.db.models import Q
 from django.contrib import messages
+
+
 
 def register_tutor(request):
     if request.method == 'POST':
@@ -146,10 +148,29 @@ def make_payment(request):
     return render(request, 'make_payment.html', {'form': form})
 
 
-@user_passes_test(is_admin)
+# @login_required
+# def payment_history(request):
+#     if request.user.role == 'tutor':
+#         tutor_profile = TutorProfile.objects.get(user=request.user)
+#         payments = Payment.objects.filter(tutor=tutor_profile).order_by('-date')
+#         return render(request, 'payments/history.html', {'payments': payments})
+#     else:
+#         return redirect('dashboard')
+    
+
+@login_required
 def payment_history(request):
-    payments = TutorPayment.objects.all().order_by('-payment_date')
-    return render(request, 'payment_history.html', {'payments': payments})
+    if request.user.role == 'tutor':
+        tutor = request.user.tutorprofile
+        payments = TutorPayment.objects.filter(tutor=tutor).order_by('-payment_date')
+        return render(request, 'payments/payment_history.html', {'payments': payments})
+    elif request.user.role == 'admin':
+        payments = TutorPayment.objects.all().order_by('-payment_date')
+        return render(request, 'payments/payment_history.html', {'payments': payments})
+    else:
+        return redirect('dashboard')
+
+
 
 
 @login_required
@@ -168,6 +189,27 @@ def edit_student_profile(request):
         form = StudentProfileEditForm(instance=profile)
 
     return render(request, 'edit_student_profile.html', {'form': form})
+
+
+
+@login_required
+def edit_tutor_profile(request):
+    # if request.user.role != 'tutor':
+    #     print("User role:", request.user.role)  # 👈 debug line
+    #     return redirect('dashboard')  # Or show an error
+
+    profile = TutorProfile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = TutorProfileEditForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = TutorProfileEditForm(instance=profile)
+
+    return render(request, 'edit_tutor_profile.html', {'form': form})
+
 
 
 
@@ -252,3 +294,6 @@ def send_message(request):
 
 def index(request):
     return render(request, 'index.html')
+
+
+
