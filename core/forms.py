@@ -91,11 +91,19 @@ class MessageForm(forms.ModelForm):
         }
 
 
+
+
 class TutorProfileEditForm(forms.ModelForm):
     class Meta:
         model = TutorProfile
         fields = ['experience', 'skills', 'interests', 'location', 'timezone', 'hourly_rate']
         widgets = {
-            'location': CountrySelectWidget(),  # Optional for better UI
-            'timezone': forms.Select(choices=[(tz, tz) for tz in pytz.common_timezones]),
+            'location': CountrySelectWidget(attrs={'class': 'form-control'}),
+            'timezone': forms.Select(choices=[(tz, tz) for tz in pytz.common_timezones], attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(TutorProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if field.widget.attrs.get('class') is None:
+                field.widget.attrs['class'] = 'form-control'
