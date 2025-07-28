@@ -73,7 +73,7 @@
             <tr>
               <td>{{ assignment.student.user.full_name }}</td>
               <td>{{ assignment.tutor.user.full_name }}</td>
-              <td>{{ assignment.assigned_at|date:"Y-m-d" }}</td>
+              <td>{{ assignment.created_at|date:"Y-m-d" }}</td>
               <td class="">
                 <form method="post" action="{% url 'remove_assignment' assignment.id %}" style="display:inline;">
                   {% csrf_token %}

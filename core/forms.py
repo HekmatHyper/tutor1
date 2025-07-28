@@ -9,12 +9,23 @@ from .models import StudentProfile
 import pytz
 from django_countries.widgets import CountrySelectWidget
 
+from django_countries.fields import CountryField
+
+
 class TutorRegistrationForm(UserCreationForm):
     experience = forms.CharField(widget=forms.Textarea)
     skills = forms.CharField(widget=forms.Textarea)
     interests = forms.CharField(widget=forms.Textarea)
-    location = forms.CharField()
-    timezone = forms.CharField()
+
+
+
+    location = CountryField(blank_label='(select country)').formfield(
+        widget=CountrySelectWidget(attrs={'class': 'form-control'})
+    )
+    timezone = forms.ChoiceField(
+        choices=[(tz, tz) for tz in pytz.common_timezones],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = CustomUser

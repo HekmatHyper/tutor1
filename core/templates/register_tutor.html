@@ -141,22 +141,24 @@
 
 
 
-      <!--Location -->
+      <!-- Location -->
       <div class="mb-3">
-        <label for="id_location" class="form-label">Location</label>
+        <label for="{{ form.location.id_for_label }}" class="form-label">Location</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-          <input type="text" name="location" class="form-control" required id="id_location">
+          {{ form.location }}
         </div>
       </div>
+
       <!-- Timezone -->
       <div class="mb-3">
-        <label for="id_timezone" class="form-label">Timezone</label>
+        <label for="{{ form.timezone.id_for_label }}" class="form-label">Timezone</label>
         <div class="input-group">
           <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
-          <input type="text" name="timezone" class="form-control" required id="id_timezone">
+          {{ form.timezone }}
         </div>
       </div>
+
 
       <button type="submit"
         class="btn btn-primary w-100 py-2 mb-3 animate__animated animate__fadeInUp animate__delay-1s">
