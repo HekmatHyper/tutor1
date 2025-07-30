@@ -125,3 +125,17 @@ section#Hero::before {
     background-color: #F97316 !important;
     padding: 4px 20px !important;
 }
+
+
+.btn-orange {
+  background-color: #f97316;
+  color: #fff;
+  border: none;
+}
+
+.btn-orange:hover {
+  background-color: #fb923c;
+  color: #fff;
+}
+
+
